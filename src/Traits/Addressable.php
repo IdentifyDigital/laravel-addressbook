@@ -15,6 +15,10 @@ trait Addressable
 	public function address()
 	{
 		
+		// Check if there are any addresses, if there is, then 
+		// return the first addresses.
+		return $this->addresses()->first();
+		
 	}
 	
 	/**
