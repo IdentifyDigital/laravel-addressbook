@@ -14,6 +14,11 @@ trait Addressable
 	 */
 	public function address()
 	{
+		// See if an address id field is defined in the attached model
+		// if it is, use that address
+		if (isset($this->address_id))
+			return $this->hasOne(Address::class,'address_id');
+		
 		
 		// Check if there are any addresses, if there is, then 
 		// return the first addresses.
