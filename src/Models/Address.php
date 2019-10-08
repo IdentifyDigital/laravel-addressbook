@@ -1,6 +1,6 @@
 <?php
 
-namespace IdentifyDigital\AddressBook\Models\Address;
+namespace IdentifyDigital\AddressBook\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
