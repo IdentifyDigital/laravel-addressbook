@@ -29,12 +29,12 @@ trait Addressable
 	/**
 	 * Get all the addresses associated with this addressable
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
 	 */
 	public function addresses()
 	{
-		return $this->belongsToMany(Address::class, 'address_relations', 'relation_id','address_id')
+		return $this->belongsToMany(Address::class, 'address_relations', 'entity_id','address_id')
 					->where('entity_class', self::class);
-	}
+	}	
 	
 }
