@@ -22,7 +22,7 @@ trait Addressable
 		
 		// Check if there are any addresses, if there is, then 
 		// return the first addresses.
-		return $this->addresses()->first();
+		return $this->addresses()->orderBy('address.created_at')->limit(1);
 		
 	}
 	
