@@ -33,7 +33,7 @@ trait Addressable
 	 */
 	public function addresses()
 	{
-		return $this->hasMany(Address::class, 'address_relation', 'relation_id')
+		return $this->belongsToMany(Address::class, 'address_relations', 'relation_id','address_id')
 					->where('entity_class', self::class);
 	}
 	
