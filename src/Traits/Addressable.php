@@ -1,6 +1,6 @@
 <?php
 
-namespace IdentifyDigital\AddressBook;
+namespace IdentifyDigital\AddressBook\Traits;
 
 use IdentifyDigital\AddressBook\Models\Address;
 
