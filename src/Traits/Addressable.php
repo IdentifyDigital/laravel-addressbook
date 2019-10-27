@@ -6,7 +6,7 @@ use IdentifyDigital\AddressBook\Models\Address;
 
 trait Addressable
 {
-	
+
 	/**
 	 * Get the primary address linked to this addressable
 	 *
@@ -16,16 +16,16 @@ trait Addressable
 	{
 		// See if an address id field is defined in the attached model
 		// if it is, use that address
-		if (isset($this->address_id))
+		if (in_array('address_id', $this->fillable))
 			return $this->belongsTo(Address::class,'address_id');
-		
-		
-		// Check if there are any addresses, if there is, then 
+
+
+		// Check if there are any addresses, if there is, then
 		// return the first addresses.
 		return $this->addresses()->orderBy('addresses.created_at')->take(1);
-		
+
 	}
-	
+
 	/**
 	 * Get all the addresses associated with this addressable
 	 *
@@ -35,6 +35,6 @@ trait Addressable
 	{
 		return $this->belongsToMany(Address::class, 'address_relations', 'entity_id','address_id')
 					->where('entity_class', self::class);
-	}	
-	
+	}
+
 }
