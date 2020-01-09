@@ -4,7 +4,8 @@
     "require": {
         "php": "^7.1.3",
         "doctrine/dbal": "^2.10",
-        "jabranr/postcodes-io": "^1.0"
+        "jabranr/postcodes-io": "^1.0",
+        "malhal/laravel-geographical": "^1.0"
     },
     "minimum-stability": "dev",
 	"extra": {

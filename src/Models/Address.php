@@ -4,18 +4,16 @@ namespace IdentifyDigital\AddressBook\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Malhal\Geographical\Geographical;
 
 class Address extends Model
 {
-	
-	/**
-	 * Allow softdeleting entries through the SoftDeletes trait.
-	 *
-	 * @trait SoftDeletes
-	 */
-	use SoftDeletes;
-	
-	/**
+    use Geographical, SoftDeletes;
+
+    const LATITUDE  = 'lat';
+    const LONGITUDE = 'long';
+
+    /**
 	 * List all fields of an address that can be mass assigned through this
 	 * model.
 	 *
@@ -36,7 +34,7 @@ class Address extends Model
 		'long',
 		'lat'
 	];
-	
+
 	/**
 	 * Get this addressable as a string format. Squashes all
 	 * the different parts of the address into a single
@@ -47,41 +45,41 @@ class Address extends Model
 	public function __toString ()
 	{
 		$parts = [];
-		
+
 		if ($this->building_name != '')
 			$parts[] = $this->building_name;
-		
+
 		if ($this->building_number != '')
 			$parts[] = $this->building_number;
-			
+
 		if ($this->line_1 != '')
 			$parts[] = $this->line_1;
-		
+
 		if ($this->line_2 != '')
 			$parts[] = $this->line_2;
-			
+
 		if ($this->line_3 != '')
 			$parts[] = $this->line_3;
-			
+
 		if ($this->line_4 != '')
 			$parts[] = $this->line_4;
-			
+
 		if ($this->town_or_city != '')
 			$parts[] = $this->town_or_city;
-			
+
 		if ($this->district != '')
 			$parts[] = $this->district;
-			
+
 		if ($this->county != '')
 			$parts[] = $this->county;
-		
+
 		if ($this->country != '')
 			$parts[] = $this->country;
-			
+
 		if ($this->post_code != '')
 			$parts[] = $this->post_code;
-		
+
 		return implode(', ', $parts);
 	}
-	
+
 }
