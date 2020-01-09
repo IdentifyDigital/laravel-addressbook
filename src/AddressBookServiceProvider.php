@@ -2,11 +2,13 @@
 
 namespace IdentifyDigital\AddressBook;
 
+use IdentifyDigital\AddressBook\Models\Address;
+use IdentifyDigital\AddressBook\Observers\AddressObserver;
 use Illuminate\Support\ServiceProvider;
 
-class AddressBookServiceProvider extends ServiceProvider 
+class AddressBookServiceProvider extends ServiceProvider
 {
-	
+
 	/**
 	 * Bootstrap and initialize parts of the Address Book module
 	 *
@@ -15,8 +17,10 @@ class AddressBookServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		$this->loadMigrationsFrom(__DIR__.'/Migrations');
+
+		Address::observe(AddressObserver::class);
 	}
-	
+
 	/**
 	 * Register Address Book services into a laravel application
 	 *
@@ -26,5 +30,5 @@ class AddressBookServiceProvider extends ServiceProvider
 	{
 		// Nothing to register
 	}
-	
+
 }

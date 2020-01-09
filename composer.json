@@ -1,6 +1,11 @@
 {
     "name": "identifydigital/laravel-addressbook",
     "description": "AddressBook Plugin for Laravel that allows models in your system to be given physical addresses",
+    "require": {
+        "php": "^7.1.3",
+        "doctrine/dbal": "^2.10",
+        "jabranr/postcodes-io": "^1.0"
+    },
     "minimum-stability": "dev",
 	"extra": {
 		"laravel": {
