@@ -3,83 +3,62 @@
 namespace IdentifyDigital\AddressBook\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Malhal\Geographical\Geographical;
 
 class Address extends Model
 {
     use Geographical, SoftDeletes;
 
+    /**
+     * @constant string
+     */
     const LATITUDE  = 'lat';
+
+    /**
+     * @constant string
+     */
     const LONGITUDE = 'long';
 
     /**
-	 * List all fields of an address that can be mass assigned through this
-	 * model.
-	 *
-	 * @var array $fillable
-	 */
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
 	protected $fillable = [
-		'building_name',
-		'building_number',
-		'line_1',
-		'line_2',
-		'line_3',
-		'line_4',
-		'town_or_city',
-		'district',
-		'county',
-		'country',
-		'post_code',
-		'long',
-		'lat'
+		'building_name', 'building_number',
+		'line_1', 'line_2', 'line_3', 'line_4',
+		'town_or_city', 'district', 'county',
+        'country', 'post_code',
+        'long', 'lat'
 	];
 
-	/**
-	 * Get this addressable as a string format. Squashes all
-	 * the different parts of the address into a single
-	 * string that can be rendered anywhere.
-	 *
-	 * @return String 	[ A text version of this addressable ]
-	 */
+    /**
+     * Returns the current Address in a string format with
+     * all filled in address parts.
+     *
+     * @return string
+     */
 	public function __toString ()
 	{
-		$parts = [];
+	    $collection = collect(Arr::only($this->attributes, [
+	        'building_name', 'building_number',
+            'line_1', 'line_2', 'line_3', 'line_4',
+            'town_or_city', 'district', 'county',
+            'country', 'post_code'
+        ]));
 
-		if ($this->building_name != '')
-			$parts[] = $this->building_name;
-
-		if ($this->building_number != '')
-			$parts[] = $this->building_number;
-
-		if ($this->line_1 != '')
-			$parts[] = $this->line_1;
-
-		if ($this->line_2 != '')
-			$parts[] = $this->line_2;
-
-		if ($this->line_3 != '')
-			$parts[] = $this->line_3;
-
-		if ($this->line_4 != '')
-			$parts[] = $this->line_4;
-
-		if ($this->town_or_city != '')
-			$parts[] = $this->town_or_city;
-
-		if ($this->district != '')
-			$parts[] = $this->district;
-
-		if ($this->county != '')
-			$parts[] = $this->county;
-
-		if ($this->country != '')
-			$parts[] = $this->country;
-
-		if ($this->post_code != '')
-			$parts[] = $this->post_code;
-
-		return implode(', ', $parts);
+	    return $collection->filter()->implode(", ");
 	}
 
+    /**
+     * @return BelongsToMany
+     */
+	public function relation()
+    {
+        return $this->belongsToMany(Address::class, 'address_relations', 'entity_id','address_id')
+            ->where('entity_class', self::class);
+    }
 }

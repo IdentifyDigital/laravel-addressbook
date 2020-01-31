@@ -32,7 +32,7 @@ trait Addressable
 	public function addresses()
 	{
 		return $this->belongsToMany(Address::class, 'address_relations', 'entity_id','address_id')
-					->where('entity_class', self::class);
+            ->where('entity_class', self::class);
 	}
 
 }
